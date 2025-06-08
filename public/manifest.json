@@ -1,0 +1,35 @@
+{
+  "name": "Rebeca Ferreira Confeitaria",
+  "short_name": "Rebeca Ferreira Confeitaria",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ed8ab6",
+  "theme_color": "#ed8ab6",
+  "icons": [
+    {
+      "src": "icons/16x16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "icons/32x32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "icons/48x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "icons/192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icons/512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
