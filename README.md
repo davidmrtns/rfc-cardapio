@@ -19,5 +19,8 @@ Utilizando a biblioteca [PastryUI](https://github.com/davidmrtns/pastry-ui), cri
 ### Tecnologias utilizadas
 - **Frontend**: Next.js, TypeScript.
 
+### Produção
+O website está disponível online em [https://rebeca-ferreira-confeitaria.web.app/](https://rebeca-ferreira-confeitaria.web.app/).
+
 ## Autor
 - David Martins - [@davidmrtns](https://github.com/davidmrtns/)
