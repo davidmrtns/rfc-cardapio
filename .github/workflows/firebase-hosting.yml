@@ -13,9 +13,16 @@ permissions:
   checks: write
   pull-requests: write
 
+env:
+  IS_PRODUCTION: ${{ github.event_name == 'push' }}
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
+    environment:
+      name: ${{ github.event_name == 'push' && 'Production' || 'Preview' }}
+      url: ${{ steps.firebase-deploy.outputs.details_url }}
 
     steps:
       - name: Check out repository
@@ -34,9 +41,19 @@ jobs:
         run: npm run build
 
       - name: Deploy to Firebase Hosting
+        id: firebase-deploy
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
-          channelId: ${{ github.event_name == 'push' && 'live' || '' }}
+          projectId: ${{ vars.FIREBASE_PROJECT_ID }}
+          channelId: ${{ env.IS_PRODUCTION == 'true' && 'live' || '' }}
+          disableComment: true
+
+      - name: Add deployment URL to summary
+        run: |
+          echo "## 🚀 Firebase Deployment" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** ${{ env.IS_PRODUCTION == 'true' && 'Production' || 'Preview' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "[Access deployed application](${{ steps.firebase-deploy.outputs.details_url }})" >> $GITHUB_STEP_SUMMARY
