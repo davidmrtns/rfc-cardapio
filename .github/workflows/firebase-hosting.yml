@@ -48,6 +48,7 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           projectId: ${{ vars.FIREBASE_PROJECT_ID }}
           channelId: ${{ env.IS_PRODUCTION == 'true' && 'live' || '' }}
+          disableComment: true
 
       - name: Add deployment URL to summary
         run: |
