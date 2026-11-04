@@ -34,6 +34,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to Firebase Hosting
+        id: firebase-deploy
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
