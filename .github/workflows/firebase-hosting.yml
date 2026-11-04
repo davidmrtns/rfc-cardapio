@@ -22,7 +22,8 @@ jobs:
 
     environment:
       name: ${{ github.event_name == 'push' && 'Production' || 'Preview' }}
-      url: ${{ steps.firebase-deploy.outputs.details_url }}
+      url:
+        ${{ steps.firebase-deploy.outputs.details_url || format('https://{0}.web.app', vars.FIREBASE_PROJECT_ID) }}
 
     steps:
       - name: Check out repository
@@ -51,9 +52,12 @@ jobs:
           disableComment: true
 
       - name: Add deployment URL to summary
+        env:
+          DEPLOY_URL:
+            ${{ steps.firebase-deploy.outputs.details_url || format('https://{0}.web.app', vars.FIREBASE_PROJECT_ID) }}
         run: |
           echo "## 🚀 Firebase Deployment" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Environment:** ${{ env.IS_PRODUCTION == 'true' && 'Production' || 'Preview' }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "[Access deployed application](${{ steps.firebase-deploy.outputs.details_url }})" >> $GITHUB_STEP_SUMMARY
+          echo "[Access deployed application]($DEPLOY_URL)" >> $GITHUB_STEP_SUMMARY
