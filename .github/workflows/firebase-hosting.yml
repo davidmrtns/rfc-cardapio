@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: ${{ env.IS_PRODUCTION == 'true' && 'Production' || 'Preview' }}
+      name: ${{ github.event_name == 'push' && 'Production' || 'Preview' }}
       url: ${{ steps.firebase-deploy.outputs.details_url }}
 
     steps:
