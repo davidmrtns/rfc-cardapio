@@ -40,3 +40,11 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
           channelId: ${{ github.event_name == 'push' && 'live' || '' }}
+
+      - name: Add deployment URL to summary
+        run: |
+          echo "## 🚀 Firebase Deployment" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** ${{ github.event_name == 'push' && 'Production' || 'Preview' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "[Access deployed application](${{ steps.firebase-deploy.outputs.details_url }})" >> $GITHUB_STEP_SUMMARY
