@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Box, Snackbar, SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
+import { MoreVert } from '@mui/icons-material';
 import { CakeFactory } from "pastry-ui";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import ShareIcon from '@mui/icons-material/Share';
@@ -59,7 +60,7 @@ export default function Home() {
               }
             }
           }}
-          icon={<SpeedDialIcon />}
+          icon={<MoreVert />}
         >
           <SpeedDialAction
             icon={<WhatsAppIcon />}
